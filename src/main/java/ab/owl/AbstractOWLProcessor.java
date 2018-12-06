@@ -24,10 +24,7 @@ public abstract class AbstractOWLProcessor{
    protected OWLOntology o;
    protected OWLOntologyManager man;
    protected OWLDataFactory df;
-//   protected OWLReasonerFactory rf;
    protected OWLReasoner reaz;
-//      OWLReasonerFactory reasonerFactory = new StructuralReasonerFactory();
-//      OWLReasoner reasoner = reasonerFactory.createReasoner(ontologia);
 
    protected String IRIName;
    protected IRI iri;       // the current ontology IRI
@@ -40,6 +37,8 @@ public abstract class AbstractOWLProcessor{
    //    the initCreate method
    // or
    //    the initCopy method
+   // or 
+   //    the initRead method
    // sometimes it needs to add a baseIRI using the addBaseIRI method
    // also the initParser method has to be overwritten
    public AbstractOWLProcessor(){
@@ -101,8 +100,6 @@ public abstract class AbstractOWLProcessor{
    // should be run in any init<Something>
    public boolean initPost(){
       df = o.getOWLOntologyManager().getOWLDataFactory();
-//      rf = new StructuralReasonerFactory();
-//      reaz = rf.createReasoner(o);
       reaz = new Reasoner.ReasonerFactory().createReasoner(o);
       log("using "+reaz.getReasonerName()+" "+reaz.getReasonerVersion().toString());
       return true;
@@ -110,8 +107,6 @@ public abstract class AbstractOWLProcessor{
 
   // needs to be overwritten in a child class to init a parser
    abstract public boolean initParser(String _parserName);
-   
-
 
    protected void log(String msg){
      if (DEBUG) {
@@ -136,27 +131,21 @@ public abstract class AbstractOWLProcessor{
       man.applyChange(new AddImport(o, importDeclaration));
    }
 
-/*   public void addImportDeclaration(String iriname, String urlname){
-      IRI tmpiri = IRI.create(iriname);
-      man.getIRIMappers().add(new SimpleIRIMapper(tmpiri, IRI.create(urlname)));
-      OWLImportsDeclaration importDeclaration=man.getOWLDataFactory().getOWLImportsDeclaration(tmpiri);
-      man.applyChange(new AddImport(o, importDeclaration));
-   }*/
-
-
+   // <name> is a subclass of <parentname>, arguments are stings
    public void addSubClass(String name, String parentname){
       OWLClass cls = df.getOWLClass(IRI.create(name));
       OWLClass parent = df.getOWLClass(IRI.create(parentname));
       addSubClass(cls,parent);
    }
 
+   // <cls> is a subclass of <parent>, arguments are classes
    public void addSubClass(OWLClass cls, OWLClass parent){
       OWLSubClassOfAxiom p_sub_a = df.getOWLSubClassOfAxiom(cls, parent);
       o.add(p_sub_a);
    }
 
 
-
+   // add class anotation
    public void addClassAnnotation(String name, String label, String lang){
       OWLClass cls = df.getOWLClass(IRI.create(name));
       OWLAnnotation labelAnno = df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(label, lang));
@@ -164,6 +153,7 @@ public abstract class AbstractOWLProcessor{
       o.add(ax1);
    }
 
+   // add class comment
    public void addClassComment(String name, String label, String lang){
       OWLClass cls = df.getOWLClass(IRI.create(name));
       OWLAnnotation commentAnno = df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(label, lang));
@@ -172,7 +162,7 @@ public abstract class AbstractOWLProcessor{
    }
 
 
-   // <className> <propertyName> SOME <valueName>
+   // <className> <propertyName> SOME <valueName>, arguments are strings
    public void addClassProperty(String className, String propertyName, String valueName){
       OWLClass cls = df.getOWLClass(IRI.create(className));
       OWLClass value = df.getOWLClass(IRI.create(valueName));
@@ -181,7 +171,7 @@ public abstract class AbstractOWLProcessor{
       o.add(ax1);
    }
 
-   // <className> <propertyName> VALUE <indName>
+   // <className> <propertyName> VALUE <indName>, arguments are strings
    public void addClassPropertyValue(String className, String propertyName, String indName){
       OWLClass cls = df.getOWLClass(IRI.create(className));
       OWLNamedIndividual ind  = df.getOWLNamedIndividual(IRI.create(indName));
@@ -190,7 +180,7 @@ public abstract class AbstractOWLProcessor{
       o.add(ax1);
    }
 
-
+   // add data property to a class, arguments are strings
    public void addClassDataProperty(String className, String propertyName, String value, Integer type){
       OWLClass cls = df.getOWLClass(IRI.create(className));
       OWLDataProperty property = df.getOWLDataProperty(IRI.create(propertyName));
@@ -199,22 +189,21 @@ public abstract class AbstractOWLProcessor{
          o.add(ax1);
       }
    }
-   // df.OWLDataHasValue getOWLDataHasValue(OWLDataPropertyExpression property, OWLLiteral value)
 
 
-   // <propertyName> domain <domainName>
+   // <propertyName> domain <domainName>, arguments are strings
    public void addObjectPropertyDomain(String propertyName, String domainName){
       OWLObjectPropertyDomainAxiom ax1 = df.getOWLObjectPropertyDomainAxiom(df.getOWLObjectProperty(IRI.create(propertyName)), df.getOWLClass(IRI.create(domainName)) );
       o.add(ax1);
    }
 
-   // <propertyName> range <domainName>
+   // <propertyName> range <domainName>, arguments are strings
    public void addObjectPropertyRange(String propertyName, String rangeName){
       OWLObjectPropertyRangeAxiom ax1 = df.getOWLObjectPropertyRangeAxiom(df.getOWLObjectProperty(IRI.create(propertyName)), df.getOWLClass(IRI.create(rangeName)) );
       o.add(ax1);
    }
 
-
+   // add an individual to a class, arguments are strings
    public void addIndividualToClass(String individualName, String className){
       OWLClass cls = df.getOWLClass(IRI.create(className));
       OWLNamedIndividual ind  = df.getOWLNamedIndividual(IRI.create(individualName));
@@ -223,6 +212,7 @@ public abstract class AbstractOWLProcessor{
    }
 
    
+   // create equvalent classes, arguments are strings
    public void addEquvalentClasses(String class1Name, String class2Name){
 
       OWLClass class1 = df.getOWLClass(IRI.create(class1Name));
@@ -236,7 +226,7 @@ public abstract class AbstractOWLProcessor{
    }
 
 
-   // <cls> equvalents to <prop> some <val>
+   // <cls> equvalents to <prop> some <val>, arguments are classes
    public void addDefinedClass(OWLClass cls, OWLObjectProperty prop, OWLClass val){
       Set<OWLClassExpression> arguments=new HashSet<OWLClassExpression>();
       arguments.add (cls);
@@ -245,7 +235,7 @@ public abstract class AbstractOWLProcessor{
       o.add(axiom);
    }
 
-   // <parent> equvalents to <cls> and <prop> some <val>
+   // <parent> equvalents to <cls> and <prop> some <val>, arguments are classes
    public void addDefinedClass(OWLClass parent, OWLClass cls, OWLObjectProperty prop, OWLClass val){
       Set<OWLClassExpression> arguments=new HashSet<OWLClassExpression>();
       arguments.add (parent);
@@ -254,7 +244,7 @@ public abstract class AbstractOWLProcessor{
       o.add(axiom);
    }
 
-   // <parent> equvalents to   (<prop1> some <val1>) and (<prop1> some <val1>)
+   // <parent> equvalents to (<prop1> some <val1>) and (<prop1> some <val1>), arguments are classes
    public void addDefinedClass(OWLClass parent, OWLObjectProperty prop1, OWLClass val1, OWLObjectProperty prop2, OWLClass val2){
       Set<OWLClassExpression> arguments=new HashSet<OWLClassExpression>();
       arguments.add (parent);
@@ -264,15 +254,20 @@ public abstract class AbstractOWLProcessor{
    }
 
 
+   public void addInverseProperties(String property1Name, String property2Name){
+      OWLObjectProperty property1 = df.getOWLObjectProperty(IRI.create(property1Name));
+      OWLObjectProperty property2 = df.getOWLObjectProperty(IRI.create(property2Name));
+      o.add(df.getOWLInverseObjectPropertiesAxiom(property1, property2));
+   }
 
- 
-   // <class> and <property> some <value>
+
+   // <class> and <property> some <value>, arguments are classes
    public OWLObjectIntersectionOf genObjectIntersectionOf (OWLClass cls, OWLObjectProperty prop, OWLClass val){
       return df.getOWLObjectIntersectionOf(cls, df.getOWLObjectSomeValuesFrom(prop, val));
    }
 
-
-
+ 
+   // get subclasses
    // to use:
    //for (OWLClass cls : clses) {
    //    String s = cls.toString();
@@ -312,7 +307,6 @@ public abstract class AbstractOWLProcessor{
 
 
 
-
   public int showSubClasses(OWLClass cls){
       // reaz.flush();
       Set<OWLClass> subinfs = getSubClasses(cls);
@@ -328,12 +322,6 @@ public abstract class AbstractOWLProcessor{
       return i;
    }
 
-
-
-/*   public String getShortIRI(IRI src){
-      String tmp = src.toString();
-      return tmp.substring(tmp.indexOf('#')+1,tmp.length()-1);
-   }*/
 
 
    public String getShortIRI(OWLClass src){
@@ -388,9 +376,7 @@ public abstract class AbstractOWLProcessor{
   }
 
 
-
-
-
+   // save an ontology to a file
    public boolean save(String filepath){
       try {
          File fileout = new File(filepath);
@@ -402,6 +388,7 @@ public abstract class AbstractOWLProcessor{
       return true;
    } 
 
-}
+
+} // That's all
 
 

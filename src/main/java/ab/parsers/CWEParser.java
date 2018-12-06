@@ -30,7 +30,6 @@ public class CWEParser extends AbstractParser{
          log("node has no attributes");
          return null;
       }
-
       // iterate all attributes
       for (int i=0; i< nodemap.getLength();i++) {
          Attr attr = (Attr)nodemap.item(i);
@@ -42,6 +41,7 @@ public class CWEParser extends AbstractParser{
          log("node has no ID");
          return null;
       }
+
 
       String ID = vuln.ID;
 
@@ -150,6 +150,30 @@ public class CWEParser extends AbstractParser{
              }
              continue;
           }
+
+
+          // get CAPECs
+          if (tmpname.equals("Related_Attack_Patterns")){
+             NodeList tmpnodelist = tmpnode.getChildNodes();
+             for (int i=0;i<tmpnodelist.getLength();i++){
+                Node tmpnode1 = tmpnodelist.item(i);
+                if (tmpnode1.getNodeName().equals("Related_Attack_Pattern")){
+                   String tmpID = null;
+                   // get all attributes
+                   NamedNodeMap nodemap1 = tmpnode1.getAttributes();
+                   if (nodemap1 != null ) {
+                      // iterate all attributes
+                      for (int i4=0; i4< nodemap1.getLength();i4++) {
+                         Attr attr = (Attr)nodemap1.item(i4);
+                         if (attr.getName().equals("CAPEC_ID")) tmpID = attr.getValue();
+                      }
+                      if (tmpID !=null) vuln.CAPECs.add("CAPEC_"+tmpID);
+                   }
+                }
+             }
+             continue;
+          }
+
 
 
       }

@@ -8,17 +8,20 @@ public class CAPECAttack{
    public String ID;
    public String Name;
    public String Description;
+   public String Abstraction;
    public String ResourcesRequired;
    public String LikeHoodText;
    public String SeverityText;
    public List<CAPECScope> Scopes;
    public List<String> CWEs;
    public List<String> Methods;
+   public List<String> Skills;
 
    public CAPECAttack(){
       Scopes = new ArrayList<CAPECScope>();
       CWEs = new ArrayList<String>();
       Methods = new ArrayList<String>();
+      Skills = new ArrayList<String>();
    }
 
 

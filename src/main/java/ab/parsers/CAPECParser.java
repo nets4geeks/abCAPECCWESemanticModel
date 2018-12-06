@@ -44,6 +44,7 @@ public class CAPECParser extends AbstractParser{
          Attr attr = (Attr)nodemap.item(i);
          if (attr.getName().equals("Name")) attack.Name = attr.getValue();
          if (attr.getName().equals("ID")) attack.ID = attr.getValue();
+         if (attr.getName().equals("Pattern_Abstraction")) attack.Abstraction = attr.getValue();
       }
       if ( attack.ID ==null ) {
          log("node has no ID");
@@ -112,6 +113,33 @@ public class CAPECParser extends AbstractParser{
                }
                continue;
             }
+
+          // get requered skills
+          if (tmpname.equals("capec:Attacker_Skills_or_Knowledge_Required")){
+             NodeList tmpnodelist = tmpnode.getChildNodes();
+             for (int i=0;i<tmpnodelist.getLength();i++){
+                 Node tmpnode1 = tmpnodelist.item(i);
+                 if (tmpnode1.getNodeName().equals("capec:Attacker_Skill_or_Knowledge_Required")){
+                     NodeList tmpnodelist1 = tmpnode1.getChildNodes();
+                     for (int k=0;k<tmpnodelist1.getLength();k++){
+                         Node tmpnode2 = tmpnodelist1.item(k);
+                         String tmpnode2name = tmpnode2.getNodeName();
+                         if (tmpnode2name.equals("#text")) continue;
+
+                         Node tmpnode3 = getFirstChildNodeByName(tmpnode2,"#text");
+                         if (tmpnode3 !=null){
+                             if (tmpnode2name.equals("capec:Skill_or_Knowledge_Level")){
+                                attack.Skills.add(Normalizer.setDegree(tmpnode3.getNodeValue()));
+                             }
+                         } else{
+                             log("could not read skills (ID="+ID+")");
+                         }
+                      }
+                   } 
+               }
+               continue;
+            }
+
 
            // CWEs
            if (tmpname.equals("capec:Related_Weaknesses")){
