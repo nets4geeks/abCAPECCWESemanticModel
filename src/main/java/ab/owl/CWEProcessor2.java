@@ -97,7 +97,7 @@ public class CWEProcessor2 extends AbstractOWLProcessor{
 
           if (isCAPECEnabled){
              for (int ii=0; ii<att.CAPECs.size(); ii++){
-                String capec = iri+"#"+att.CAPECs.get(ii);
+                String capec = iri+"#i"+att.CAPECs.get(ii);
                 // <CWEID> isTargetsBy value <capec>
                 addClassPropertyValue(CWEID, iri+"#isTargetedBy", capec);
              }
