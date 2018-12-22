@@ -2,6 +2,10 @@
 
 # The generator of the CAPEC & CWE semantic models
 
+## Documentation
+* [The example of OWL Ontology](snapshots/20181222v2.owl).
+* [The examples of DL queries](doc/examples_of_DL_queries.pdf).
+
 
 ## Using
 
@@ -11,7 +15,7 @@ Then run one of the next scrips:
 (you also should edit a properties file, download required data etc.)
 
 * ./runBuildSemanticModelv2 to build the OWL file of the CAPEC&CWE model in the "instance" (itmutgu) style (i.e. snapshots/20181222v2.owl).
-* ./runBuildSemanticModel to build the OWL file of the CAPEC&CWE model in the A10-16 style (i.e. snapshots/20181129.owl).
+* ./runBuildSemanticModel to build the OWL file of the CAPEC&CWE model in the A10-16 style (i.e. snapshots/20181129.owl) - obsolete.
 
 ## Author
 
