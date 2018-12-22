@@ -3,8 +3,8 @@
 # The generator of the CAPEC & CWE semantic models
 
 ## Documentation
-* [The example of OWL Ontology](snapshots/20181222v2.owl).
-* [The examples of DL queries](doc/examples_of_DL_queries.pdf).
+* [The example of OWL Modle](snapshots/20181222v2.owl)
+* [The examples of DL queries](doc/examples_of_DL_queries.pdf)
 
 
 ## Using
