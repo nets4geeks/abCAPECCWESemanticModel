@@ -9,8 +9,8 @@ Clone & run ./compile (you only need java & maven to do that).
 
 Then run one of the next scrips:
 (you also should edit a properties file, download required data etc.)
- 
-* ./runBuildSemanticModelv2 to build the OWL file of the CAPEC&CWE model in the "instance" style.
+
+* ./runBuildSemanticModelv2 to build the OWL file of the CAPEC&CWE model in the "instance" (itmutgu) style (i.e. snapshots/20181222v2.owl).
 * ./runBuildSemanticModel to build the OWL file of the CAPEC&CWE model in the A10-16 style (i.e. snapshots/20181129.owl).
 
 ## Author
