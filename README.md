@@ -4,8 +4,12 @@
 
 ## Documentation
 * [The example of OWL Model](snapshots/20181222v2.owl)
-* [The examples of DL queries](doc/examples_of_DL_queries.pdf)
 
+To test the model you can use [Protege](https://protege.stanford.edu/) & the FaCT++ reasoner or the Pellet reasoner. 
+For DL use the standard DL query tab:
+* [The examples of DL queries](doc/examples_of_DL_queries.pdf).
+For SPARQL use the [snap-sparql-query](https://github.com/protegeproject/snap-sparql-query) plugin:
+* [The examples of SPARQL queries](doc/examples_of_SPARQL_queries.pdf). note: the requests containing data properties only work with Pellet.
 
 ## Using
 
