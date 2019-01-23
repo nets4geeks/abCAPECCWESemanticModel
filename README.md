@@ -1,6 +1,6 @@
 
 
-# The generator of the CAPEC & CWE semantic models
+# Generator of CAPEC & CWE semantic models
 
 ## Documentation
 * [The example of OWL Model](snapshots/20181222v2.owl)
