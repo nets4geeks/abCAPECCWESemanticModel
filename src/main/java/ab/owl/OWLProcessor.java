@@ -14,9 +14,11 @@ import java.util.*;
 import ab.parsers.*;
 import ab.data.*;
 
+
+// a simple processor for anything you want
 public class OWLProcessor extends AbstractOWLProcessor{
 
-   // we do not need to parse external xml files
+   // do not need to parse external xml files
    public boolean initParser(String path){
       return true;
    }

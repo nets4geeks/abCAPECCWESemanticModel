@@ -30,7 +30,8 @@ public class CAPECProcessor2 extends AbstractOWLProcessor{
       NodeList lst = parser.getNodeList();
 
    if (isProcessingEnabled){
-
+      log("process ...");
+    
       addObjectPropertyRange(iri+"#targetsCWE", iri+"#CWE");
       addObjectPropertyDomain(iri+"#targetsCWE", iri+"#CAPEC");
       addInverseProperties(iri+"#targetsCWE",iri+"#isTargetedBy");
@@ -149,6 +150,7 @@ public class CAPECProcessor2 extends AbstractOWLProcessor{
           }
 
       }
+      showStat();
    }
 
 

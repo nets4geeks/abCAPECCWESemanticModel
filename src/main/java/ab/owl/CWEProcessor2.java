@@ -33,6 +33,7 @@ public class CWEProcessor2 extends AbstractOWLProcessor{
 
    public void process(){
    if (isProcessingEnabled){
+      log("process ...");
       NodeList lst = parser.getNodeList();
 
       for (int i=0; i<lst.getLength();i++){
@@ -135,6 +136,7 @@ public class CWEProcessor2 extends AbstractOWLProcessor{
 
       }
    }
+   showStat();
    }
 
 }

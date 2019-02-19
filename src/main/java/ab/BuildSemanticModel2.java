@@ -33,7 +33,7 @@ class BuildSemanticModel2 {
                 capecprocessor.addBaseIRI(STIX20_IRINAME);
                 System.out.println("...processing "+ CAPECFilePath);
                 capecprocessor.process();
-                capecprocessor.save(CAPEC_OWL_FilePath);
+                //capecprocessor.save(CAPEC_OWL_FilePath);
 
                 OWLOntology ont = capecprocessor.getOntology();
  

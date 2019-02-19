@@ -13,6 +13,9 @@ import org.semanticweb.owlapi.search.EntitySearcher;
 import java.io.*;
 import java.util.*;
 import java.util.stream.*;
+import java.time.Duration;
+import java.time.Instant;
+
 
 // common OWL functions
 public abstract class AbstractOWLProcessor{
@@ -31,6 +34,9 @@ public abstract class AbstractOWLProcessor{
    protected IRI baseIRI;   // the parrent ontology IRI
 
    private String processorName;
+
+   // the reasoner name
+   private String reasonerName;
 
    // it needs to create an instance
    // and apply to the instance 
@@ -66,7 +72,7 @@ public abstract class AbstractOWLProcessor{
       return true;
    }
 
-   // uses an existen ontology <_o> with the base iri <_IRIName> and the xml file <_parserFile>
+   // uses an existen ontology <_o> with the base iri <_IRIName> and with parser file (_parserFile) 
    public boolean initCopy(String _IRIName, String _parserFile, OWLOntology _o){
       IRIName = _IRIName;
       o = _o;
@@ -81,9 +87,39 @@ public abstract class AbstractOWLProcessor{
       return true;
    }
 
+   // copy an existen ontology <_o>  without a parser
+   public boolean initCopy(OWLOntology _o){
+      o = _o;
+      IRIName = getIRI().toString();
+
+      try {
+         iri= IRI.create(IRIName);
+      } catch (Exception e){
+         e.printStackTrace();
+         return false;
+      }
+      if (!initPost()) return false;
+      if (!initParser(null)) return false;
+
+      System.out.println(IRIName);
+
+      return true;
+   }
+
+
+   protected String getms(long start, long stop){
+      long diff = (stop-start)/1000000;
+      return Long.toString(diff) + " ms";
+   }
+
+
    // read an existen ontology from a file 
    // fileName - local file of ontology, _parserFile - the xml file for parser
    public boolean initRead(String fileName, String _parserFile){
+
+      long startTime = System.nanoTime();
+      log("initRead: " + fileName);
+
       try {
          File file = new File(fileName);
          o = man.loadOntologyFromOntologyDocument(file);
@@ -94,14 +130,26 @@ public abstract class AbstractOWLProcessor{
       }
       if (!initPost()) return false;
       if (!initParser(_parserFile)) return false;
+
+     long stopTime = System.nanoTime();
+     log("initRead: "+ getms(startTime,stopTime));
+
       return true;
    }
 
    // should be run in any init<Something>
    public boolean initPost(){
       df = o.getOWLOntologyManager().getOWLDataFactory();
+      return true;
+      // enjoy yourself and init a reasoner by hand
+   }
+
+
+   public boolean initReasoner(){
+      // init reasoner
       reaz = new Reasoner.ReasonerFactory().createReasoner(o);
-      log("using "+reaz.getReasonerName()+" "+reaz.getReasonerVersion().toString());
+      reasonerName = reaz.getReasonerName()+" "+reaz.getReasonerVersion().toString();
+      log("initReasoner: "+ reasonerName);
       return true;
    }
 
@@ -375,12 +423,85 @@ public abstract class AbstractOWLProcessor{
      return e.toString();
   }
 
+  public int getAxiomsCount(){
+     return o.getAxiomCount();
+  }
+
+
+  public void showStat(){
+     log("-----------------------");
+
+     int i1=0;
+     Set<AxiomType<?>> s = AxiomType.TBoxAxiomTypes;
+     for (AxiomType a : s){
+         i1=i1+o.getAxiomCount(a);
+     }
+     log("showStat: tbox axioms "+ i1 );
+
+     int i2=0;
+     s = AxiomType.ABoxAxiomTypes;
+     for (AxiomType a : s){
+         i2=i2+ o.getAxiomCount(a);
+     }
+     log("showStat: abox axioms "+ i2 );
+
+     int i3=0;
+     s = AxiomType.RBoxAxiomTypes;
+     for (AxiomType a : s){
+         i3=i3+ o.getAxiomCount(a);
+     }
+     log("showStat: rbox axioms "+ i3 );
+
+     int i = i1+i2+i3;
+     // the differnce is annotations & declarations etc.
+     log("showStat: abox+rbox+tbox "+ i);
+     log("showStat: total axioms "+ getAxiomsCount());
+     log("-----------------------");
+
+  }
+
+
+   // you need a reasoner to do so ...
+   public void reasonerFlush(){
+        //Instant start = Instant.now();
+        log("reasonerFlush: axioms before "+ getAxiomsCount());
+
+        long startTime = System.nanoTime();
+        reaz.flush();
+        long stopTime = System.nanoTime();
+        //Instant end = Instant.now();
+        log("reasonerFlush: "+ getms(startTime,stopTime));
+        log("reasonerFlush: axioms after "+ getAxiomsCount());
+
+   }
+
+
+   // you need a reasoner to do so ...
+   public void fillOntology(){
+      reasonerFlush();
+      log("fillOntology: axioms before "+ getAxiomsCount());
+      showStat();
+      InferredOntologyGenerator gen = new InferredOntologyGenerator(reaz);
+      long startTime = System.nanoTime();
+      gen.fillOntology(df, o);
+      long stopTime = System.nanoTime();
+      log("fillOntology: "+ getms(startTime,stopTime));
+      log("fillOntology: axioms after "+ getAxiomsCount());
+      showStat();
+
+
+   }
 
    // save an ontology to a file
    public boolean save(String filepath){
       try {
          File fileout = new File(filepath);
+         long startTime = System.nanoTime();
          man.saveOntology(o, new FunctionalSyntaxDocumentFormat(), new FileOutputStream(fileout));
+         long stopTime = System.nanoTime();
+         log("save (saveOntology): "+ getms(startTime,stopTime));
+         showStat();
+
       } catch (Exception e){
          e.printStackTrace();
          return false;
