@@ -492,14 +492,15 @@ public abstract class AbstractOWLProcessor{
 
    }
 
-   // save an ontology to a file
+   // save an ontology to a file in Functional syntax
    public boolean save(String filepath){
+      log("save (FunctionalSyntaxDocumentFormat): "+ filepath);
       try {
          File fileout = new File(filepath);
          long startTime = System.nanoTime();
          man.saveOntology(o, new FunctionalSyntaxDocumentFormat(), new FileOutputStream(fileout));
          long stopTime = System.nanoTime();
-         log("save (saveOntology): "+ getms(startTime,stopTime));
+         log("save (FunctionalSyntaxDocumentFormat): "+ getms(startTime,stopTime));
          showStat();
 
       } catch (Exception e){
@@ -508,6 +509,45 @@ public abstract class AbstractOWLProcessor{
       }
       return true;
    } 
+
+   // save an ontology to a file in RDFXML
+   public boolean saveRDFXML(String filepath){
+
+      log("save (RDFXMLDocumentFormat): "+ filepath);
+      try {
+         File fileout = new File(filepath);
+         long startTime = System.nanoTime();
+         
+         man.saveOntology(o, new RDFXMLDocumentFormat(), new FileOutputStream(fileout));
+         long stopTime = System.nanoTime();
+         log("save (RDFXMLDocumentFormat): "+ getms(startTime,stopTime));
+         showStat();
+
+      } catch (Exception e){
+         e.printStackTrace();
+         return false;
+      }
+      return true;
+   } 
+
+  // save an ontology to a file in the Turtle format
+   public boolean saveTTL(String filepath){
+      log("save (TurtleDocumentFormat): "+ filepath);
+      try {
+         File fileout = new File(filepath);
+         long startTime = System.nanoTime();
+         man.saveOntology(o, new TurtleDocumentFormat(), new FileOutputStream(fileout));
+         long stopTime = System.nanoTime();
+         log("save (TurtleDocumentFormat): "+ getms(startTime,stopTime));
+         showStat();
+
+      } catch (Exception e){
+         e.printStackTrace();
+         return false;
+      }
+      return true;
+   } 
+
 
 
 } // That's all

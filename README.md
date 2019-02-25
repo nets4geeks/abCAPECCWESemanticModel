@@ -2,10 +2,10 @@
 
 # Generator of CAPEC & CWE semantic models
 
-## Documentation
-* [The example of OWL Model](snapshots/20181222v2.owl)
+## Clear CAPEC & CWE model (itmutgu style)
+* [The destination OWL Model](snapshots/20181222v2.owl)
 
-To test the model you can use [Protege](https://protege.stanford.edu/) & the FaCT++ reasoner or the Pellet reasoner. 
+To test the destination model you can use [Protege](https://protege.stanford.edu/) & the FaCT++ reasoner or the Pellet reasoner. 
 
 For DL use the standard DL query tab:
 * [The examples of DL queries](doc/examples_of_DL_queries.pdf).
@@ -13,15 +13,17 @@ For DL use the standard DL query tab:
 For SPARQL use the [snap-sparql-query](https://github.com/protegeproject/snap-sparql-query) plugin:
 * [The examples of SPARQL queries](doc/examples_of_SPARQL_queries.pdf). (note: the requests containing data properties only work with Pellet)
 
-## Using
+To create the destination model yourself 
+1. clone & run ./compile (you only need java & maven to do that).
+2. run ./runBuildSemanticModelv2 to build the OWL file (do not forget to edit a properties file, download required data etc.)
 
-Clone & run ./compile (you only need java & maven to do that).
+## The A10-16 model (obsolete)
 
-Then run one of the next scrips:
-(you also should edit a properties file, download required data etc.)
+* [The destination OWL Model](snapshots/20181129.owl)
 
-* ./runBuildSemanticModelv2 to build the OWL file of the CAPEC&CWE model in the "instance" (itmutgu) style (i.e. snapshots/20181222v2.owl).
-* ./runBuildSemanticModel to build the OWL file of the CAPEC&CWE model in the A10-16 style (i.e. snapshots/20181129.owl) - obsolete.
+To create the destination model yourself:
+1. clone & run ./compile (you only need java & maven to do that).
+2. ./runBuildSemanticModel to build the OWL file (do not forget to edit a properties file, download required data etc.)
 
 ## Author
 

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+NISTDIR=/home/net/projectdata/NVD
+
+# taken from https://github.com/stevespringett/nist-data-mirror/
+mvn org.apache.maven.plugins:maven-dependency-plugin:3.1.1:copy -Dartifact=us.springett:nist-data-mirror:1.2.0:jar -DoutputDirectory=.
+java -jar nist-data-mirror-1.2.0.jar $NISTDIR json
