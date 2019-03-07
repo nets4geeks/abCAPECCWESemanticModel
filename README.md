@@ -3,9 +3,9 @@
 # Generator of CAPEC & CWE semantic models
 
 ## CAPEC & CWE model (itmutgu style)
-* [The destination OWL Model](snapshots/20181222v2.owl)
+* [The target OWL Model](snapshots/20181222v2.owl)
 
-To test the destination model you can use [Protege](https://protege.stanford.edu/) & the FaCT++ reasoner or the Pellet reasoner. 
+To test the target model you can use [Protege](https://protege.stanford.edu/) & the FaCT++ reasoner or the Pellet reasoner. 
 
 For DL use the standard DL query tab:
 * [The examples of DL queries](doc/examples_of_DL_queries.pdf).
@@ -25,9 +25,9 @@ If you want to refer to the CAPEC&CWE model, please cite:
 
 ## The A10-16 model 
 
-* [The destination OWL Model](snapshots/20181129.owl)
+* [The target OWL Model](snapshots/20181129.owl)
 
-To create the destination model:
+To create the target model:
 1. clone & run ./compile (you only need java & maven to do that).
 2. ./runBuildSemanticModel to build the OWL file (do not forget to edit a properties file, download required data etc.)
 
