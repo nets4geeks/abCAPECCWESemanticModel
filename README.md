@@ -19,8 +19,9 @@ To create the destination model:
 
 Full description is [here](http://injoit.org/index.php/j1/article/download/686/675)
 
-To you want to refer to the CAPEC&CWE model, please cite:
->Brazhuk A. Semantic model of attacks and vulnerabilities based on CAPEC and CWE dictionaries //International Journal of Open Information Technologies. – 2019. – Т. 7. – №. 3. – С. 38-41. [injoit.org/index.php/j1/article/download/686/675](http://injoit.org/index.php/j1/article/download/686/675)
+If you want to refer to the CAPEC&CWE model, please cite:
+>Brazhuk A. Semantic model of attacks and vulnerabilities based on CAPEC and CWE dictionaries //International Journal of Open Information Technologies. – 2019. – Т. 7. – №. 3. – С. 38-41.
+
 
 ## The A10-16 model 
 
