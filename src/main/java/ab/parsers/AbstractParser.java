@@ -1,11 +1,16 @@
 
 package ab.parsers;
 
+
+// To read XML the standard package javax.xml.parsers has been used; 
+// it contains API, able to manipulate an object model (DOM - Document Object Model) of XML
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import java.io.*;
 
 import ab.data.*;
+
+
 
 public abstract class AbstractParser{
 

@@ -87,5 +87,39 @@ public class Normalizer {
       return in1;
    }
    
+   // todo remove all non-alphabetic symbols and add something to the begining if it's a digit
+   public static String safe1(String in){
+      String in1 = in;
+      in1 = in1.replace(" ","_");
+      in1 = in1.replace(":","_");
+      in1 = in1.replace("(","_");
+      in1 = in1.replace(")","_");
+      in1 = in1.replace("/","_");
+      in1 = in1.replace("\\","_");
+      in1 = in1.replace("^","_");
+      in1 = in1.replace("+","plus");
+      in1 = in1.replace("#","sharp");
+      in1 = in1.replace("$","dollar");
+      in1 = in1.replace("@","at");
+      in1 = in1.replace(".","dot");
+      in1 = in1.replace("-","dash");
+      in1 = in1.replace("'","_");
+      in1 = in1.replace("&","and");
+      in1 = in1.replace("!","_");
+      in1 = in1.replace("?","_");
+      in1 = in1.replace(",","_");
+      in1 = in1.replace(">","_");
+      in1 = in1.replace("<","_");
+      in1 = in1.replace("\"","_");
+      in1 = in1.replace("*","star");
+      in1 = in1.replace("%","_");
+      in1 = in1.replace("[","_");
+      in1 = in1.replace("]","_");
+      in1 = in1.replace("|","_");
+      if (Character.isDigit(in1.charAt(0))) in1 = "x" + in1;
+      return in1;
+   }
+
+
 
 }

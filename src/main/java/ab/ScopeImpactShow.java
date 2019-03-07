@@ -25,13 +25,11 @@ class ScopeImpactShow {
  
             ScopeImpactProcessor1 modeler = new ScopeImpactProcessor1();
             modeler.DEBUG = false;
-          
 
             if (modeler.initRead(CAPEC_OWL_FilePath,null)){
 
                 //System.out.println("processing ...");
                 modeler.showScopesImpacts();
-
                 //System.out.println("saving the resulting model ..."); 
                 //modeler.save(SCOPE_IMPACT_FilePath);
 

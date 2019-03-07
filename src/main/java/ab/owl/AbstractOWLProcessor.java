@@ -23,7 +23,6 @@ public abstract class AbstractOWLProcessor{
    public boolean DEBUG;
    public static final int XSDINTEGER = 1;
 
-
    protected OWLOntology o;
    protected OWLOntologyManager man;
    protected OWLDataFactory df;
@@ -48,9 +47,9 @@ public abstract class AbstractOWLProcessor{
    // sometimes it needs to add a baseIRI using the addBaseIRI method
    // also the initParser method has to be overwritten
    public AbstractOWLProcessor(){
-     processorName = getClass().getName();
-     DEBUG = true;
-     man = OWLManager.createOWLOntologyManager();
+      processorName = getClass().getName();
+      DEBUG = true;
+      man = OWLManager.createOWLOntologyManager();
    }
 
    public IRI getIRI(){
@@ -157,9 +156,9 @@ public abstract class AbstractOWLProcessor{
    abstract public boolean initParser(String _parserName);
 
    protected void log(String msg){
-     if (DEBUG) {
-        System.out.println("["+processorName+"]: "+msg);
-     }
+      if (DEBUG) {
+         System.out.println("["+processorName+"]: "+msg);
+      }
    }
 
    public OWLOntology getOntology(){
@@ -201,11 +200,36 @@ public abstract class AbstractOWLProcessor{
       o.add(ax1);
    }
 
+   public void addClassAnnotation(OWLClass cls, String label, String lang){
+      OWLAnnotation labelAnno = df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(label, lang));
+      OWLAxiom ax1 = df.getOWLAnnotationAssertionAxiom(cls.getIRI(), labelAnno);
+      o.add(ax1);
+   }
+
+   public void addIndividualAnnotation(OWLNamedIndividual ind, String label, String lang){
+      OWLAnnotation labelAnno = df.getOWLAnnotation(df.getRDFSLabel(), df.getOWLLiteral(label, lang));
+      OWLAxiom ax1 = df.getOWLAnnotationAssertionAxiom(ind.getIRI(), labelAnno);
+      o.add(ax1);
+   }
+
+
    // add class comment
    public void addClassComment(String name, String label, String lang){
       OWLClass cls = df.getOWLClass(IRI.create(name));
       OWLAnnotation commentAnno = df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(label, lang));
       OWLAxiom ax1 = df.getOWLAnnotationAssertionAxiom(cls.getIRI(), commentAnno);
+      o.add(ax1);
+   }
+
+   public void addClassComment(OWLClass cls, String label, String lang){
+      OWLAnnotation commentAnno = df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(label, lang));
+      OWLAxiom ax1 = df.getOWLAnnotationAssertionAxiom(cls.getIRI(), commentAnno);
+      o.add(ax1);
+   }
+
+   public void addIndividualComment(OWLNamedIndividual ind, String label, String lang){
+      OWLAnnotation commentAnno = df.getOWLAnnotation(df.getRDFSComment(), df.getOWLLiteral(label, lang));
+      OWLAxiom ax1 = df.getOWLAnnotationAssertionAxiom(ind.getIRI(), commentAnno);
       o.add(ax1);
    }
 
@@ -259,7 +283,17 @@ public abstract class AbstractOWLProcessor{
       o.add(ax1);
    }
 
-   
+   // add an individual to a class, arguments are individual & class
+   public void addIndividualToClass(OWLNamedIndividual ind, OWLClass cls){
+      OWLClassAssertionAxiom ax1 = df.getOWLClassAssertionAxiom(cls, ind);
+      o.add(ax1);
+   }
+
+   public void addIndividualsProperty(OWLNamedIndividual ind1, OWLObjectProperty prop, OWLNamedIndividual ind2){
+      OWLAxiom ax1 = df.getOWLObjectPropertyAssertionAxiom(prop, ind1, ind2);
+      o.add(ax1);
+   }
+
    // create equvalent classes, arguments are strings
    public void addEquvalentClasses(String class1Name, String class2Name){
 
