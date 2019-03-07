@@ -5,7 +5,7 @@
 ## CAPEC & CWE model (itmutgu style)
 * [The target OWL Model](snapshots/20181222v2.owl)
 
-To test the target model you can use [Protege](https://protege.stanford.edu/) & the FaCT++ reasoner or the Pellet reasoner. 
+To test the target model you can use [Protege](https://protege.stanford.edu/) & the FaCT++ reasoner or Pellet reasoner. 
 
 For DL use the standard DL query tab:
 * [The examples of DL queries](doc/examples_of_DL_queries.pdf).
