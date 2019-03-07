@@ -13,7 +13,7 @@ For DL use the standard DL query tab:
 For SPARQL use the [snap-sparql-query](https://github.com/protegeproject/snap-sparql-query) plugin:
 * [The examples of SPARQL queries](doc/examples_of_SPARQL_queries.pdf). (note: the requests containing data properties only work with Pellet)
 
-To create the destination model: 
+To create the target model: 
 1. clone & run ./compile (you only need java & maven to do that).
 2. run ./runBuildSemanticModelv2 to build the OWL file (do not forget to edit a properties file, download required data etc.)
 
