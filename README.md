@@ -12,7 +12,7 @@ To create the target model
 1. clone & run ./compile (you only need java & maven to do that)
 2. To build the RDF dataset run  ./runBuildDBpediaProductModel (is not so easy, because it requires asking DBpedia Spotlight)
 
-To create the test NVD model
+To create the test NVD model:
 3. Download the NVD data (e.g. run ./update_NVDfeeds)
 4. To build the NVD dataset run ./runBuildNVDModel
 
