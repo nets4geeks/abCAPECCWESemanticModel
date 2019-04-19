@@ -25,22 +25,28 @@ public class NVDProcessor extends AbstractOWLProcessor{
    protected static String CVEName = "#CVE";
 
    protected OWLClass PRODUCT;
-   protected static String PRODUCTName = "#Product";
+   protected static String PRODUCTName = "#CPEProduct";
 
-   protected OWLClass VENDOR;
-   protected static String VENDORName = "#Vendor";
+//   protected OWLClass VENDOR;
+//   protected static String VENDORName = "#Vendor";
+
+   protected IRI iriCPE = null;
+   protected IRI iriCAPECCWE = null;
 
    protected OWLClass CWE;
    protected static String CWEName = "#CWE";
 
    protected OWLObjectProperty AFFECTS;
    protected static String AFFECTSName = "#affectsProduct";
+   protected OWLObjectProperty ISAFFECTED;
+   protected static String ISAFFECTEDName = "#isAffectedByCVE";
+
 
    protected OWLObjectProperty PROBLEMS;
    protected static String PROBLEMSName = "#problemsCWE";
 
-   protected OWLObjectProperty PRODUCES;
-   protected static String PRODUCESName = "#producesProduct";
+   protected OWLObjectProperty ISPROBLEMED;
+   protected static String ISPROBLEMEDName = "#isProblemedByCVE";
 
    // do not need to parse external xml files
    public boolean initParser(String path){
@@ -48,7 +54,7 @@ public class NVDProcessor extends AbstractOWLProcessor{
    }
 
 
-   public boolean init(String _iri, String _nvdFolder, String _nvdLog){
+   public boolean init(String _iri, String _nvdFolder, String _nvdLog,String _iriCPE,String _iriCAPECCWE){
       if (initCreate(_iri,null)){
         nvdFolder = _nvdFolder;
         nvdLog = _nvdLog;
@@ -56,11 +62,14 @@ public class NVDProcessor extends AbstractOWLProcessor{
         // that might make the process faster ...
         CVE = df.getOWLClass(IRI.create(iri+CVEName));
         PRODUCT = df.getOWLClass(IRI.create(iri+PRODUCTName));
-        VENDOR = df.getOWLClass(IRI.create(iri+VENDORName));
         CWE = df.getOWLClass(IRI.create(iri+CWEName));
         AFFECTS = df.getOWLObjectProperty(IRI.create(iri+AFFECTSName));
         PROBLEMS = df.getOWLObjectProperty(IRI.create(iri+PROBLEMSName));
-        PRODUCES = df.getOWLObjectProperty(IRI.create(iri+PRODUCESName));
+        ISAFFECTED = df.getOWLObjectProperty(IRI.create(iri+ISAFFECTEDName));
+        ISPROBLEMED = df.getOWLObjectProperty(IRI.create(iri+ISPROBLEMEDName));
+
+        iriCPE = IRI.create(_iriCPE);
+        iriCAPECCWE = IRI.create(_iriCAPECCWE);
 
         return true;
       }
@@ -76,24 +85,18 @@ public class NVDProcessor extends AbstractOWLProcessor{
       if (vuln.description != null) addIndividualComment(iCVE,vuln.description,"en");
 
       for (int i=0;i<vuln.products.size();i++){
-         Product product = vuln.products.get(i);
-         product.product = Normalizer.safe1(product.product);
-         product.vendor = Normalizer.safe1(product.vendor);
-         // !!!todo: check for bad symbols
-         OWLNamedIndividual iProduct  = df.getOWLNamedIndividual(IRI.create(iri+"#"+product.vendor+"___"+product.product));
-         OWLNamedIndividual iVendor  = df.getOWLNamedIndividual(IRI.create(iri+"#"+product.vendor));
-         addIndividualToClass(iVendor,VENDOR); // !!!reasoner is able to get this
-         addIndividualToClass(iProduct,PRODUCT); // !!!reasoner is able to get this
+         CPEProduct product = vuln.products.get(i);
+         OWLNamedIndividual iProduct  = df.getOWLNamedIndividual(IRI.create(iriCPE+"#"+product.nameSafe));
          addIndividualsProperty(iCVE,AFFECTS,iProduct);
-         addIndividualsProperty(iVendor,PRODUCES,iProduct);
+         addIndividualsProperty(iProduct,ISAFFECTED,iCVE);
       }
 
       for (int i=0;i<vuln.CWEs.size();i++){
-         // !!!todo replace - by _
          String cwe = vuln.CWEs.get(i);
-         OWLNamedIndividual iCWE  = df.getOWLNamedIndividual(IRI.create(iri+"#i"+cwe));
-         addIndividualToClass(iCWE,CWE); // !!!reasoner is able to get this
+         OWLNamedIndividual iCWE  = df.getOWLNamedIndividual(IRI.create(iriCAPECCWE+"#i"+cwe.replace("-","_")));
+         //addIndividualToClass(iCWE,CWE); // !!!reasoner is able to get this
          addIndividualsProperty(iCVE,PROBLEMS,iCWE);
+         addIndividualsProperty(iCWE,ISPROBLEMED,iCVE);
       }
 
    }

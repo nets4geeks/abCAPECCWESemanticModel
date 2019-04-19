@@ -64,7 +64,6 @@ public class JacksonParser{
          }
       }
  
-
       dataFile = _dataFile;
       try {
          jParser = jFactory.createJsonParser(new File(dataFile));

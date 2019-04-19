@@ -10,6 +10,8 @@ import org.semanticweb.owlapi.util.*;
 import org.semanticweb.owlapi.formats.*;
 import org.semanticweb.owlapi.reasoner.structural.*;
 import org.semanticweb.owlapi.search.EntitySearcher;
+import org.semanticweb.owlapi.model.parameters.*;
+import org.semanticweb.owlapi.model.providers.*;
 import java.io.*;
 import java.util.*;
 import java.util.stream.*;
@@ -22,6 +24,7 @@ public abstract class AbstractOWLProcessor{
 
    public boolean DEBUG;
    public static final int XSDINTEGER = 1;
+   public static final int XSDSTRING = 2;
 
    protected OWLOntology o;
    protected OWLOntologyManager man;
@@ -31,6 +34,13 @@ public abstract class AbstractOWLProcessor{
    protected String IRIName;
    protected IRI iri;       // the current ontology IRI
    protected IRI baseIRI;   // the parrent ontology IRI
+
+
+   // to enable/disable the writting logs
+   private boolean WRITELOG = false;
+   private String logFile;
+   private FileWriter logWriter;
+
 
    private String processorName;
 
@@ -55,6 +65,11 @@ public abstract class AbstractOWLProcessor{
    public IRI getIRI(){
       return o.getOntologyID().getOntologyIRI().get();
    }
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+// inits
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
    // creates an ontology with the base iri <_IRIName> and the xml file <_parserFile>
    public boolean initCreate(String _IRIName, String _parserFile){
@@ -144,32 +159,72 @@ public abstract class AbstractOWLProcessor{
    }
 
 
-   public boolean initReasoner(){
-      // init reasoner
-      reaz = new Reasoner.ReasonerFactory().createReasoner(o);
-      reasonerName = reaz.getReasonerName()+" "+reaz.getReasonerVersion().toString();
-      log("initReasoner: "+ reasonerName);
-      return true;
-   }
-
   // needs to be overwritten in a child class to init a parser
    abstract public boolean initParser(String _parserName);
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+// logz
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
    protected void log(String msg){
-      if (DEBUG) {
-         System.out.println("["+processorName+"]: "+msg);
+     String logMsg = "["+processorName+"]: "+msg;
+     if (DEBUG) {
+        System.out.println(logMsg);
+     }
+     if (WRITELOG){
+        try {
+           logWriter.write(logMsg+"\n");
+        } catch (Exception e){
+           e.printStackTrace();
+        }
+     }
+   }
+
+   public boolean initLog(String _logFile){
+      logFile = _logFile;
+      if (logFile !=null){
+         try {
+            logWriter = new FileWriter(logFile); 
+            WRITELOG=true;
+            log("starting logging to "+logFile+" ...");   
+         } catch (Exception e){
+            e.printStackTrace();
+            log("failed to init log file "+logFile);
+            return false;
+         }
+      }
+      return true;
+   }
+
+   public void closeLog(){
+      if (WRITELOG){
+        try {
+           log("... closing log "+logFile);
+           WRITELOG = false;
+           logWriter.close();
+        } catch (Exception e){
+           e.printStackTrace();
+        }
       }
    }
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// generation
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
    public OWLOntology getOntology(){
       return o;
    }
 
+
    public void addBaseIRI(String iriname){
       baseIRI = IRI.create(iriname);
 //      addImportDeclaration(iriname);
    }
-
 
 
    public void addImportDeclaration(String iriname){
@@ -263,6 +318,27 @@ public abstract class AbstractOWLProcessor{
    }
 
 
+/*   public void addIndividualDataProperty(OWLNamedIndividual ind, OWLDataProperty property, String value, Integer type){
+      if (type == XSDINTEGER){
+         OWLSubClassOfAxiom ax1 = df.getOWLSubClassOfAxiom(ind, df.getOWLDataHasValue(property, df.getOWLLiteral( Integer.parseInt(value) )));
+         o.add(ax1);
+      }
+
+      if (type == XSDSTRING){
+         OWLSubClassOfAxiom ax1 = df.getOWLSubClassOfAxiom(ind, df.getOWLDataHasValue(property, df.getOWLLiteral(value)));
+         o.add(ax1);
+      }
+
+   }*/
+//getOWLDataPropertyAssertionAxiom(OWLDataPropertyExpression property,OWLIndividual subject,String value)
+
+   public void addIndividualDataProperty(OWLNamedIndividual ind, OWLDataProperty property, String value){
+      //OWLDataPropertyAssertionAxiom ax = df.getOWLDataPropertyAssertionAxiom(property.asDataPropertyExpression(),(OWLIndividual)ind,value);
+      OWLDataPropertyAssertionAxiom ax = df.getOWLDataPropertyAssertionAxiom(property,ind,df.getOWLLiteral(value, "en"));
+      o.add(ax);
+   }
+
+
    // <propertyName> domain <domainName>, arguments are strings
    public void addObjectPropertyDomain(String propertyName, String domainName){
       OWLObjectPropertyDomainAxiom ax1 = df.getOWLObjectPropertyDomainAxiom(df.getOWLObjectProperty(IRI.create(propertyName)), df.getOWLClass(IRI.create(domainName)) );
@@ -308,6 +384,16 @@ public abstract class AbstractOWLProcessor{
    }
 
 
+   public void addSameIndividuals(OWLNamedIndividual ind1, OWLNamedIndividual ind2){
+      Set<OWLNamedIndividual> arguments=new HashSet<OWLNamedIndividual>();
+      arguments.add (ind1);
+      arguments.add (ind2);
+      OWLAxiom axiom = df.getOWLSameIndividualAxiom(arguments);
+      o.add(axiom);
+   }
+
+
+
    // <cls> equvalents to <prop> some <val>, arguments are classes
    public void addDefinedClass(OWLClass cls, OWLObjectProperty prop, OWLClass val){
       Set<OWLClassExpression> arguments=new HashSet<OWLClassExpression>();
@@ -348,63 +434,6 @@ public abstract class AbstractOWLProcessor{
       return df.getOWLObjectIntersectionOf(cls, df.getOWLObjectSomeValuesFrom(prop, val));
    }
 
- 
-   // get subclasses
-   // to use:
-   //for (OWLClass cls : clses) {
-   //    String s = cls.toString();
-   //    Log.d(TAG, s.substring(s.indexOf("#") + 1, s.length() -1));
-   //}
-   // wants an IRI & short classname
-   public Set<OWLClass> getSubClasses(String _iri, String className){
-      OWLClass cls = df.getOWLClass(IRI.create(_iri+className));
-      return getSubClasses(cls);
-   }
-   // wants an OWLClass as an argument
-   public Set<OWLClass> getSubClasses(OWLClass cls){
-      NodeSet<OWLClass> subClasses = reaz.getSubClasses(cls, true);
-      Set<OWLClass> clses = subClasses.getFlattened();
-      return clses;
-   }
-   // wants a shortname, uses the current ontology iri
-   public Set<OWLClass> getSubClasses(String className){
-      return getSubClasses(iri.toString(),className);
-   }
-
-
-   public void showClassesList(Set<OWLClass> clses){
-      for (OWLClass cls : clses) {
-         String s = cls.asOWLClass().getIRI().toString();
-         String s1 = getShortIRI(cls.asOWLClass());
-         System.out.println("SHORT ::"+s1+"::    LONG: "+s);
-      }
-   }
-
-   public void showClassesListShort(Set<OWLClass> clses){
-      for (OWLClass cls : clses) {
-         String s1 = getShortIRI(cls.asOWLClass());
-         System.out.println(s1);
-      }
-   }
-
-
-
-  public int showSubClasses(OWLClass cls){
-      // reaz.flush();
-      Set<OWLClass> subinfs = getSubClasses(cls);
-      System.out.println ("Class "+getShortIRI(cls)+"("+cls.asOWLClass().getIRI().toString() +")" +" has sublclasses:");
-      int i=0;
-      for (OWLClass subcls : subinfs) {
-         if (!subcls.asOWLClass().getIRI().toString().equals("http://www.w3.org/2002/07/owl#Nothing") ){
-           i++;
-           System.out.println("   "+getShortIRI(subcls)+" | "+subcls.asOWLClass().getIRI().toString());
-         }
-      }
-      System.out.println("total: "+i);
-      return i;
-   }
-
-
 
    public String getShortIRI(OWLClass src){
      // String tmp = src.toString();
@@ -414,6 +443,29 @@ public abstract class AbstractOWLProcessor{
    }
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// questions to o
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  public boolean doesIndividualExist(OWLNamedIndividual ind){
+     return o.containsEntityInSignature(ind.getIRI());
+  }
+
+
+  public boolean doesEntityExist(IRI _iri){
+     return o.containsEntityInSignature(_iri);
+  }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// http://owlcs.github.io/owlapi/apidocs_5/org/semanticweb/owlapi/search/EntitySearcher.html /////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  public boolean doesIndividualsRelationshipExist(OWLNamedIndividual ind1, OWLObjectProperty prop, OWLNamedIndividual ind2){
+     OWLAxiom ax1 = df.getOWLObjectPropertyAssertionAxiom(prop, ind1, ind2);
+     if (EntitySearcher.containsAxiom(ax1,o,Imports.INCLUDED)) return true;
+     return false;
+  }
 
   public String getLabel(OWLEntity e) {
      Stream<OWLAnnotation> labels = EntitySearcher.getAnnotations(e, o);
@@ -462,6 +514,85 @@ public abstract class AbstractOWLProcessor{
   }
 
 
+
+   public Stream<OWLIndividual> getDifferentIndividuals(OWLNamedIndividual ind){
+      return EntitySearcher.getDifferentIndividuals(ind,o);
+   }
+
+
+   public OWLNamedIndividual getSameEntityByPattern(String pattern,OWLNamedIndividual ind){
+      //System.out.println("getSameEntityByPattern: source="+ind.toString());
+      Stream<OWLIndividual> labels = EntitySearcher.getSameIndividuals(ind,o);
+      for (Iterator<OWLIndividual> iterator = labels.iterator(); iterator.hasNext(); ){
+         OWLNamedIndividual an = (OWLNamedIndividual)iterator.next();
+         //System.out.println("getSameEntityByPattern: candidate="+an.toString());
+         if (an.getIRI().toString().startsWith(pattern)) {
+            //System.out.println("getSameEntityByPattern: found="+an.toString()+"\n");
+            return an;
+         }
+      }
+    
+      //System.out.println("getSameEntityByPattern: nothing found\n");
+      return null;
+   }
+
+
+   public OWLNamedIndividual getDifferentEntityByPattern(String pattern,OWLNamedIndividual ind){
+      //System.out.println("getDifferentEntityByPattern: source="+ind.toString());
+      Stream<OWLIndividual> labels = EntitySearcher.getDifferentIndividuals(ind,o);
+      for (Iterator<OWLIndividual> iterator = labels.iterator(); iterator.hasNext(); ){
+         OWLNamedIndividual an = (OWLNamedIndividual)iterator.next();
+         //System.out.println("getDifferentEntityByPattern: candidate="+an.toString());
+         if (an.getIRI().toString().startsWith(pattern)) {
+            //System.out.println("getDifferentEntityByPattern: found="+an.toString()+"\n");
+            return an;
+         }
+      }
+    
+      //System.out.println("getDifferentEntityByPattern: nothing found\n");
+      return null;
+
+   }
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+// show
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 
+   public void showClassesList(Set<OWLClass> clses){
+      for (OWLClass cls : clses) {
+         String s = cls.asOWLClass().getIRI().toString();
+         String s1 = getShortIRI(cls.asOWLClass());
+         System.out.println("SHORT ::"+s1+"::    LONG: "+s);
+      }
+   }
+
+   public void showClassesListShort(Set<OWLClass> clses){
+      for (OWLClass cls : clses) {
+         String s1 = getShortIRI(cls.asOWLClass());
+         System.out.println(s1);
+      }
+   }
+
+
+
+  public int showSubClasses(OWLClass cls){
+      // reaz.flush();
+      Set<OWLClass> subinfs = getSubClasses(cls);
+      System.out.println ("Class "+getShortIRI(cls)+"("+cls.asOWLClass().getIRI().toString() +")" +" has sublclasses:");
+      int i=0;
+      for (OWLClass subcls : subinfs) {
+         if (!subcls.asOWLClass().getIRI().toString().equals("http://www.w3.org/2002/07/owl#Nothing") ){
+           i++;
+           System.out.println("   "+getShortIRI(subcls)+" | "+subcls.asOWLClass().getIRI().toString());
+         }
+      }
+      System.out.println("total: "+i);
+      return i;
+   }
+
+
   public void showStat(){
      log("-----------------------");
 
@@ -495,7 +626,21 @@ public abstract class AbstractOWLProcessor{
   }
 
 
-   // you need a reasoner to do so ...
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+// resoning
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+   public boolean initReasoner(){
+      // init reasoner
+      reaz = new Reasoner.ReasonerFactory().createReasoner(o);
+      reasonerName = reaz.getReasonerName()+" "+reaz.getReasonerVersion().toString();
+      log("initReasoner: "+ reasonerName);
+      return true;
+   }
+
+   // you need a reasoner to do that ...
    public void reasonerFlush(){
         //Instant start = Instant.now();
         log("reasonerFlush: axioms before "+ getAxiomsCount());
@@ -506,7 +651,6 @@ public abstract class AbstractOWLProcessor{
         //Instant end = Instant.now();
         log("reasonerFlush: "+ getms(startTime,stopTime));
         log("reasonerFlush: axioms after "+ getAxiomsCount());
-
    }
 
 
@@ -522,9 +666,46 @@ public abstract class AbstractOWLProcessor{
       log("fillOntology: "+ getms(startTime,stopTime));
       log("fillOntology: axioms after "+ getAxiomsCount());
       showStat();
-
-
    }
+
+   // get subclasses
+   // to use:
+   //for (OWLClass cls : clses) {
+   //    String s = cls.toString();
+   //    Log.d(TAG, s.substring(s.indexOf("#") + 1, s.length() -1));
+   //}
+   // wants an IRI & short classname
+   public Set<OWLClass> getSubClasses(String _iri, String className){
+      OWLClass cls = df.getOWLClass(IRI.create(_iri+className));
+      return getSubClasses(cls);
+   }
+   // wants an OWLClass as an argument
+   public Set<OWLClass> getSubClasses(OWLClass cls){
+      NodeSet<OWLClass> subClasses = reaz.getSubClasses(cls, true);
+      Set<OWLClass> clses = subClasses.getFlattened();
+      return clses;
+   }
+   // wants a shortname, uses the current ontology iri
+   public Set<OWLClass> getSubClasses(String className){
+      return getSubClasses(iri.toString(),className);
+   }
+
+
+/*   public Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind){
+      return reaz.getSameIndividuals(ind);
+   }*/
+
+/*   public NodeSet<OWLNamedIndividual> getDifferentIndividuals(OWLNamedIndividual ind){
+      return reaz.getDifferentIndividuals(ind);
+   }*/
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+// savings /////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    // save an ontology to a file in Functional syntax
    public boolean save(String filepath){
@@ -584,6 +765,8 @@ public abstract class AbstractOWLProcessor{
 
 
 
-} // That's all
+} 
+
+// That's all
 
 

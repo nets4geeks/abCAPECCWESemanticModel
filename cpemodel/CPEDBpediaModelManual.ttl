@@ -1,0 +1,623 @@
+@prefix : <http://www.grsu.by/net/CPEDBpediaModel#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.grsu.by/net/CPEDBpediaModel> .
+
+<http://www.grsu.by/net/CPEDBpediaModel> rdf:type owl:Ontology .
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.grsu.by/net/CPEDBpediaModel#DBpediaResource
+:DBpediaResource rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://dbpedia.org/resource/Drupal
+<http://dbpedia.org/resource/Drupal> rdf:type owl:NamedIndividual ,
+                                              :DBpediaResource ;
+                                     owl:differentFrom :godwinsl_s_law_project_godwinsl_s_law .
+
+###  http://dbpedia.org/resource/Apache_Flex
+<http://dbpedia.org/resource/Apache_Flex> rdf:type owl:NamedIndividual ,
+                                                   :DBpediaResource ;
+                                          owl:differentFrom :ibm_flex_system_x220_m4_firmware ,
+                                                     :ibm_flex_system_x222_m4_firmware ,
+                                                     :ibm_flex_system_x240_m4_firmware ,
+                                                     :ibm_flex_system_x280_m4_firmware ,
+                                                     :ibm_flex_system_x440_m4_firmware ,
+                                                     :ibm_flex_system_x480_m4_firmware ,
+                                                     :ibm_flex_system_x880_m4_firmware ,
+                                                     :lenovo_flex_system_x240_m4_firmware ,
+                                                     :lenovo_flex_system_x240_m5_firmware ,
+                                                     :lenovo_flex_system_x280_x6_firmware ,
+                                                     :lenovo_flex_system_x440_m4_firmware ,
+                                                     :lenovo_flex_system_x480_x6_firmware ,
+                                                     :lenovo_flex_system_x880_firmware .
+
+
+<http://dbpedia.org/resource/Google_Nexus> rdf:type owl:NamedIndividual ,
+                                                    :DBpediaResource ;
+                                           owl:differentFrom :cisco_nexus_3016q ,
+                                                      :cisco_nexus_3064t ,
+                                                      :cisco_nexus_3064x ,
+                                                      :cisco_nexus_3132q ,
+                                                      :cisco_nexus_3164q ,
+                                                      :cisco_nexus_4001i ,
+                                                      :cisco_nexus_5010p_switch ,
+                                                      :cisco_nexus_5020p_switch ,
+                                                      :cisco_nexus_5548p ,
+                                                      :cisco_nexus_5548p_switch ,
+                                                      :cisco_nexus_5596t ,
+                                                      :cisco_nexus_5596up ,
+                                                      :cisco_nexus_5596up_switch ,
+                                                      :cisco_nexus_56128p ,
+                                                      :cisco_nexus_5624q ,
+                                                      :cisco_nexus_5648q ,
+                                                      :cisco_nexus_5672up ,
+                                                      :cisco_nexus_5696q ,
+                                                      :cisco_nexus_6004x ,
+                                                      :cisco_nexus_92160ycdashx ,
+                                                      :cisco_nexus_92304qc ,
+                                                      :cisco_nexus_9236c ,
+                                                      :cisco_nexus_9272q ,
+                                                      :cisco_nexus_93108tcdashex ,
+                                                      :cisco_nexus_93120tx ,
+                                                      :cisco_nexus_93128tx ,
+                                                      :cisco_nexus_93180ycdashex ,
+                                                      :cisco_nexus_9332pq ,
+                                                      :cisco_nexus_9336pq_aci_spine ,
+                                                      :cisco_nexus_9372px ,
+                                                      :cisco_nexus_9372tx ,
+                                                      :cisco_nexus_9396px ,
+                                                      :cisco_nexus_9396tx ,
+                                                      :cisco_nexus_9508 .
+
+
+
+<http://dbpedia.org/resource/Glossary_of_ancient_Roman_religion> rdf:type owl:NamedIndividual ,
+                                                   :DBpediaResource ;
+                                          owl:differentFrom :monstra_vendor .
+
+
+
+
+
+<http://dbpedia.org/resource/HC_MVD> rdf:type owl:NamedIndividual ,
+                                             :DBpediaResource ;
+                                          owl:differentFrom :mvd_vendor .
+
+
+<http://dbpedia.org/resource/Apple> rdf:type owl:NamedIndividual ,
+                                             :DBpediaResource ;
+                                          owl:differentFrom :apple_vendor .
+
+
+<http://dbpedia.org/resource/Accel-KKR> rdf:type owl:NamedIndividual ,
+                                                 :DBpediaResource ;
+                                        owl:differentFrom :ektron_vendor .
+
+
+<http://dbpedia.org/resource/Alfred_Kinsey> rdf:type owl:NamedIndividual ,
+                                                     :DBpediaResource ;
+                                            owl:differentFrom :kinsey_vendor .
+
+
+<http://dbpedia.org/resource/Atari_2600> rdf:type owl:NamedIndividual ,
+                                                  :DBpediaResource ;
+                                         owl:differentFrom :cisco_telepresence_video_communication_server .
+
+
+<http://dbpedia.org/resource/Bentley> rdf:type owl:NamedIndividual ,
+                                               :DBpediaResource ;
+                                      owl:differentFrom :bentley_vendor .
+
+
+<http://dbpedia.org/resource/British_European_Airways> rdf:type owl:NamedIndividual ,
+                                                                :DBpediaResource ;
+                                                       owl:differentFrom :bea_vendor .
+
+
+<http://dbpedia.org/resource/British_Motor_Corporation> rdf:type owl:NamedIndividual ,
+                                                                 :DBpediaResource ;
+                                                        owl:differentFrom :bmc_vendor .
+
+
+<http://dbpedia.org/resource/Eaton_Corporation> rdf:type owl:NamedIndividual ,
+                                                         :DBpediaResource ;
+                                                owl:differentFrom :eaton_vendor .
+
+
+
+<http://dbpedia.org/resource/Edel_AG> rdf:type owl:NamedIndividual ,
+                                               :DBpediaResource ;
+                                      owl:differentFrom :ultrapop_vendor .
+
+
+<http://dbpedia.org/resource/Electronic_Arts> rdf:type owl:NamedIndividual ,
+                                                       :DBpediaResource ;
+                                              owl:differentFrom :chillingo_vendor .
+
+
+<http://dbpedia.org/resource/Elipse> rdf:type owl:NamedIndividual ,
+                                              :DBpediaResource ;
+                                     owl:differentFrom :elipse_vendor .
+
+
+<http://dbpedia.org/resource/European_Centre_for_Medium-Range_Weather_Forecasts> rdf:type owl:NamedIndividual ,
+                                                                                          :DBpediaResource ;
+                                                                                 owl:differentFrom :ecmwf_vendor .
+
+
+<http://dbpedia.org/resource/Henry_E._Huntington> rdf:type owl:NamedIndividual ,
+                                                           :DBpediaResource ;
+                                                  owl:differentFrom :huntington_vendor .
+
+
+<http://dbpedia.org/resource/Insite> rdf:type owl:NamedIndividual ,
+                                              :DBpediaResource ;
+                                     owl:differentFrom :insite_vendor .
+
+
+<http://dbpedia.org/resource/Institute_of_Technical_Education> rdf:type owl:NamedIndividual ,
+                                                                        :DBpediaResource ;
+                                                               owl:differentFrom :ite_vendor .
+
+
+
+<http://dbpedia.org/resource/JDA_Software> rdf:type owl:NamedIndividual ,
+                                                    :DBpediaResource ;
+                                           owl:differentFrom :redprairie_vendor .
+
+
+<http://dbpedia.org/resource/KQEG-CA> rdf:type owl:NamedIndividual ,
+                                               :DBpediaResource ;
+                                      owl:differentFrom :wibu_vendor .
+
+
+<http://dbpedia.org/resource/Magix> rdf:type owl:NamedIndividual ,
+                                             :DBpediaResource ;
+                                    owl:differentFrom :magix_vendor .
+
+
+<http://dbpedia.org/resource/MiWay> rdf:type owl:NamedIndividual ,
+                                             :DBpediaResource ;
+                                    owl:differentFrom :miway_vendor .
+
+
+<http://dbpedia.org/resource/National_Institutes_of_Health> rdf:type owl:NamedIndividual ,
+                                                                     :DBpediaResource ;
+                                                            owl:differentFrom :nih_vendor .
+
+
+<http://dbpedia.org/resource/Nero> rdf:type owl:NamedIndividual ,
+                                            :DBpediaResource ;
+                                   owl:differentFrom :nero_vendor .
+
+
+###  http://dbpedia.org/resource/Serena_Williams
+<http://dbpedia.org/resource/Serena_Williams> rdf:type owl:NamedIndividual ,
+                                                       :DBpediaResource ;
+                                              owl:differentFrom :serena_vendor .
+
+
+<http://dbpedia.org/resource/Special_Air_Service> rdf:type owl:NamedIndividual ,
+                                                           :DBpediaResource ;
+                                                  owl:differentFrom :sas_vendor .
+
+<http://dbpedia.org/resource/Uber_Cup> rdf:type owl:NamedIndividual ,
+                                                :DBpediaResource ;
+                                       owl:differentFrom :uber_vendor .
+
+
+<http://dbpedia.org/resource/United_States_Air_Force> rdf:type owl:NamedIndividual ,
+                                                               :DBpediaResource ;
+                                                      owl:differentFrom :usaf_vendor .
+
+
+<http://dbpedia.org/resource/KNET_(AM)> rdf:type owl:NamedIndividual ,
+                                                 :DBpediaResource ;
+                                        owl:differentFrom :knet_vendor .
+
+
+<http://dbpedia.org/resource/Trillian_(character)> rdf:type owl:NamedIndividual ,
+                                                            :DBpediaResource ;
+                                                   owl:differentFrom :trillian_vendor .
+
+
+
+<http://dbpedia.org/resource/EPiServer> rdf:type owl:NamedIndividual ,
+                                               :DBpediaResource ;
+                                    owl:sameAs :ektron_vendor .
+
+
+###  http://dbpedia.org/resource/SUSE_Linux_Enterprise_Server
+<http://dbpedia.org/resource/SUSE_Linux_Enterprise_Server> rdf:type owl:NamedIndividual ,
+                                               :DBpediaResource ;
+                                    owl:sameAs :suse_linux_enterprise_workstation_extension .
+
+
+
+<http://dbpedia.org/resource/OpenSUSE> rdf:type owl:NamedIndividual ,
+                                                :DBpediaResource ;
+                                       owl:sameAs :novell_opensuse ,
+                                                  :opensuse_evergreen ,
+                                                  :opensuse_leap ,
+                                                  :opensuse_opensuse ,
+                                                  :opensuse_project_opensuse ,
+                                                  :opensuse_suse_linux_enterprise_server ,
+                                                  :suse_opensuse .
+
+
+<http://dbpedia.org/resource/Ubuntu_(operating_system)> rdf:type owl:NamedIndividual ,
+                                                :DBpediaResource ;
+                                        owl:sameAs :canonical_ubuntu_linux .
+
+<http://dbpedia.org/resource/ASP.NET> rdf:type owl:NamedIndividual ,
+                                               :DBpediaResource ;
+                                      owl:differentFrom :auth0_aspnet ,
+                                                 :auth0_aspnetdashowin ,
+                                                 :dundas_dundas_chart_aspdotnet ,
+                                                 :oracle_providers_for_aspdotnet_help .
+
+<http://dbpedia.org/resource/Active_Server_Pages> rdf:type owl:NamedIndividual ,
+                                                           :DBpediaResource ;
+                                                  owl:differentFrom :aimluck_aipodashasp .
+
+
+<http://dbpedia.org/resource/Adobe_Acrobat> rdf:type owl:NamedIndividual ,
+                                                     :DBpediaResource ;
+                                            owl:differentFrom :foxitsoftware_enterprise_reader ,
+                                                       :foxitsoftware_foxit_mobilepdf_dash_pdf_reader ,
+                                                       :netopsystem_fead_optimizer ,
+                                                       :nuance_pdf_reader ,
+                                                       :nuance_pdf_reader_plus .
+
+
+<http://dbpedia.org/resource/Adobe_Flash_Player> rdf:type owl:NamedIndividual ,
+                                                          :DBpediaResource ;
+                                                 owl:differentFrom :gnu_flash_player .
+
+<http://dbpedia.org/resource/AmigaOS> rdf:type owl:NamedIndividual ,
+                                               :DBpediaResource ;
+                                      owl:differentFrom :ibm_infosphere_information_server_metadata_workbench ,
+                                                 :ibm_infosphere_metadata_workbench ,
+                                                 :ibm_rational_test_workbench .
+
+
+<http://dbpedia.org/resource/Berkeley_Software_Distribution> rdf:type owl:NamedIndividual ,
+                                                                      :DBpediaResource ;
+                                                             owl:differentFrom :windriver_bsdos .
+
+<http://dbpedia.org/resource/Google_Reader> rdf:type owl:NamedIndividual ,
+                                                     :DBpediaResource ;
+                                            owl:differentFrom :jetbrains_omea_reader .
+
+
+<http://dbpedia.org/resource/HotSpot> rdf:type owl:NamedIndividual ,
+                                               :DBpediaResource ;
+                                      owl:differentFrom :hp_hotspot_laserjet_pro_m1218nfs_mfp_firmware .
+
+
+<http://dbpedia.org/resource/LG_G2> rdf:type owl:NamedIndividual ,
+                                             :DBpediaResource ;
+                                    owl:differentFrom :hp_elitedesk_800_g2_dm ,
+                                               :hp_elitedesk_800_g2_twr ,
+                                               :hp_eliteone_705_g2_23in_aio_tslslnt .
+
+
+<http://dbpedia.org/resource/Linux> rdf:type owl:NamedIndividual ,
+                                             :DBpediaResource ;
+                                    owl:differentFrom :adobe_flash_player_for_linux ,
+                                               :altiris_language_pack_for_patch_management_core_linux ,
+                                               :altiris_language_pack_for_patch_management_dell_for_linux ,
+                                               :altiris_linux_pack_for_patch_management_solution_for_dell_servers ,
+                                               :altiris_patch_management_core_solution_for_linux ,
+                                               :altlinux_kbd ,
+                                               :conectiva_linux ,
+                                               :conga_conga ,
+                                               :fte_fte_text_editor ,
+                                               :ftpfs_ftpfs ,
+                                               :gentoo_linux ,
+                                               :gentoo_linux_eix ,
+                                               :gnome_gnome ,
+                                               :gnu_libc ,
+                                               :hp_linux_imaging_and_printing_project ,
+                                               :hp_snmp_agents_for_linux ,
+                                               :ibm_linux_on_power ,
+                                               :ibm_linux_on_zseries ,
+                                               :jan_kara_linux_diskquota ,
+                                               :linux_audit_project_linux_audit ,
+                                               :linux_kernel ,
+                                               :linux_linux_kernel ,
+                                               :lksctp_stream_control_transmission_protocol ,
+                                               :mandrakesoft_mandrake_linux ,
+                                               :mandrakesoft_mandrake_linux_corporate_server ,
+                                               :nmh_nmh ,
+                                               :novell_suse_linux_enterprise_module_for_legacy_software ,
+                                               :novell_suse_linux_enterprise_server ,
+                                               :novell_suse_linux_enterprise_software_development_kit ,
+                                               :novell_suse_linux_software_development_kit ,
+                                               :novell_suse_package_hub_for_suse_linux_enterprise ,
+                                               :omnikeydotaaitg_omnikey_cardman ,
+                                               :omnikeydotaaitg_omnikey_cardman_4040 ,
+                                               :opensuse_project_suse_linux_enterprise_desktop ,
+                                               :opensuse_project_suse_linux_enterprise_server ,
+                                               :opensuse_project_suse_linux_enterprise_software_development_kit ,
+                                               :quest_intrust_report_pack_for_linux ,
+                                               :quest_intrust_report_pack_for_suse_linux ,
+                                               :redhat_linux_powertools ,
+                                               :sgi_advanced_linux_environment ,
+                                               :sophos_antidashvirus ,
+                                               :standards_based_linux_instrumentation_project_standardsdashbased_linux_common_information_model_client ,
+                                               :sun_linux ,
+                                               :suse_linux ,
+                                               :suse_linux_enterprise ,
+                                               :suse_linux_enterprise_debuginfo ,
+                                               :suse_linux_enterprise_software_development_kit ,
+                                               :suse_suse_linux ,
+                                               :suse_suse_linux_connectivity_server ,
+                                               :suse_suse_linux_database_server ,
+                                               :suse_suse_linux_enterprise_desktop ,
+                                               :suse_suse_linux_enterprise_server ,
+                                               :suse_suse_linux_enterprise_software_development_kit ,
+                                               :suse_suse_linux_firewall ,
+                                               :suse_suse_linux_firewall_cd ,
+                                               :suse_suse_linux_firewall_livedashcd ,
+                                               :suse_suse_linux_imap_server ,
+                                               :suse_suse_linux_office_server ,
+                                               :suse_suse_linux_openexchange_server ,
+                                               :suse_suse_linux_school_server ,
+                                               :suse_suse_linux_standard_server ,
+                                               :suse_suse_united_linux ,
+                                               :trustix_secure_linux ,
+                                               :vmware_photon_os ,
+                                               :windriver_wrlinux .
+
+
+<http://dbpedia.org/resource/Linux_kernel> rdf:type owl:NamedIndividual ,
+                                                    :DBpediaResource ;
+                                           owl:differentFrom :accelatech_bizsearch ,
+                                                      :connectiva_linux ,
+                                                      :elecsyscorp_director_dnp3_outstation_kernel ,
+                                                      :fortinet_forticlient ,
+                                                      :hp_thinpro_linux ,
+                                                      :kernel_bridgedashutils ,
+                                                      :kernel_linuxdashpam ,
+                                                      :linux_linux_kerneldashrt ,
+                                                      :linuxdashatm_linuxdashatm ,
+                                                      :linuxdashnfs_nfsdashutils ,
+                                                      :linuxdashnis_rpcdotyppasswdd ,
+                                                      :linuxdashnis_ypserv ,
+                                                      :nec_expresscluster_x ,
+                                                      :netkit_netkit ,
+                                                      :netkitdashftp_netkit_ftp ,
+                                                      :netkitdashftp_netkit_ftpd ,
+                                                      :platform_lsadmin ,
+                                                      :redhat_kernel ,
+                                                      :rsbac_rule_set_based_access_control ,
+                                                      :suse_linux_firewall_on_cd_admin_host ,
+                                                      :suse_suse_linux_admindashcd_for_firewall .
+
+
+<http://dbpedia.org/resource/List_of_Flex_frameworks> rdf:type owl:NamedIndividual ,
+                                                               :DBpediaResource ;
+                                                      owl:differentFrom :graniteds_granite_data_services .
+
+
+<http://dbpedia.org/resource/MacOS_Server> rdf:type owl:NamedIndividual ,
+                                                    :DBpediaResource ;
+                                           owl:differentFrom :cisco_tftp_server .
+
+<http://dbpedia.org/resource/Microsoft_Exchange_Server> rdf:type owl:NamedIndividual ,
+                                                                 :DBpediaResource ;
+                                                        owl:differentFrom :blackberry_enterprise_server ,
+                                                                   :blackberry_enterprise_server_express ,
+                                                                   :ca_unicenter_management_microsoft_exchange ,
+                                                                   :ibm_data_protection ,
+                                                                   :ibm_flashcopy_manager ,
+                                                                   :mcafee_security_for_microsoft_exchange ,
+                                                                   :quest_intrust_knowledge_pack_for_microsoft_exchange_server ,
+                                                                   :symantec_mail_security_for_microsoft_exchange .
+
+<http://dbpedia.org/resource/Microsoft_SQL_Server> rdf:type owl:NamedIndividual ,
+                                                            :DBpediaResource ;
+                                                   owl:differentFrom :arcanadev_sql_server_for_adtempus ,
+                                                              :commvault_sql_server_idataagent ,
+                                                              :lianja_lianja_sql_server ,
+                                                              :quest_litespeed_for_sql_server ,
+                                                              :quest_toad_for_sql_server .
+
+
+<http://dbpedia.org/resource/Microsoft_Windows> rdf:type owl:NamedIndividual ,
+                                                         :DBpediaResource ;
+                                                owl:differentFrom :altiris_inventory_solution_for_windows ,
+                                                           :altiris_monitor_agent_for_windows ,
+                                                           :altiris_patch_management_for_windows ,
+                                                           :altiris_patch_management_for_windows_dell_servers ,
+                                                           :altiris_patch_management_for_windows_dell_servers_language_pack ,
+                                                           :altiris_patch_management_for_windows_language_pack ,
+                                                           :altiris_report_pack_for_inventory_solution_for_windows ,
+                                                           :altiris_report_pack_for_patch_management_solution_for_windows ,
+                                                           :altiris_report_pack_for_software_delivery_solution_for_windows ,
+                                                           :apple_mpeg2_codec ,
+                                                           :atlassian_sourcetree ,
+                                                           :attachmate_extraslem_for_windows_95slslnt ,
+                                                           :bandoo_windows_savevid_toolbar ,
+                                                           :bandoo_windows_searchqu_toolbar ,
+                                                           :bea_aqualogic_interaction_content_service_for_windows_files ,
+                                                           :biscom_faxcom_suite_for_windows ,
+                                                           :biscom_faxcom_suite_for_windows_admin ,
+                                                           :biscom_faxcom_suite_for_windows_client ,
+                                                           :brio_folder_size_for_windows ,
+                                                           :ca_arcserve_backup_agent_for_open_files_for_windows ,
+                                                           :ca_arcserve_backup_client_agent_for_windows ,
+                                                           :ca_arcserve_client_agent ,
+                                                           :ca_brightstor_arcserve_backup_for_windows ,
+                                                           :ca_brigthstor_arcserve_client_for_windows ,
+                                                           :castech_ezccid_smart_card_reader_setup_for_windows_2000_xp_2003 ,
+                                                           :castech_ezusb_smart_card_reader_setup_for_windows_2000_xp_2003 ,
+                                                           :cisco_acs_for_windows ,
+                                                           :cisco_ciscoworks_windows ,
+                                                           :cisco_secure_acs_for_windows_nt ,
+                                                           :cisco_secure_acs_for_windows_server ,
+                                                           :cisecurity_security_scoring_tool_windows_nt_2000 ,
+                                                           :citadel_hercules_remediation_client_for_windows ,
+                                                           :citrix_access_gateway_plugdashin ,
+                                                           :citrix_metaframe_presentation_server_for_windows ,
+                                                           :citrix_presentation_server_for_windows ,
+                                                           :cognos_windows_common_logon_server ,
+                                                           :commvault_srm_windows_file_system_agent ,
+                                                           :commvault_windows_file_system_idataagent ,
+                                                           :cordaware_bestinformed ,
+                                                           :coupons_coupon_printer_for_windows ,
+                                                           :f5_vpn_client_for_windows ,
+                                                           :hp_inode_management_center_pc ,
+                                                           :hp_insight_diagnostics_online_edition_for_windows ,
+                                                           :hp_insight_management_wbem_providers_for_windows_server_2003slsl2008 ,
+                                                           :hp_lightsdashout_online_configuration_utility_for_windows_server_2003 ,
+                                                           :hp_storageworks_secure_path_windows ,
+                                                           :hp_storageworks_windows_host_agent_files ,
+                                                           :ibm_iss_proventia_server_ips_for_windows ,
+                                                           :ipass_ipass_open_mobile ,
+                                                           :islonline_isl_desktop_plugin ,
+                                                           :kedit_kedit_for_windows ,
+                                                           :lenovo_shareit ,
+                                                           :linecorp_line ,
+                                                           :lostpassword_windows_key ,
+                                                           :mediacodec_windows_essentials_media_codec_pack ,
+                                                           :ncr_wintools_for_windows ,
+                                                           :netapp_data_ontap_dsm_for_windows_mpio ,
+                                                           :netapp_windows_host_utilities ,
+                                                           :nortel_pc_client_soft_phone_sip ,
+                                                           :nvidia_display_driver ,
+                                                           :oce_windows_printer_driver ,
+                                                           :pivotal_software_windows_stemcells ,
+                                                           :pkware_pkzip_for_windows ,
+                                                           :pkware_pkzip_server_for_windows ,
+                                                           :qnap_qsync ,
+                                                           :quest_intrust_report_pack_for_windows ,
+                                                           :rockmongo_rockmongo ,
+                                                           :rsa_authentication_agent_for_windows ,
+                                                           :sap_gui_for_windows ,
+                                                           :sap_netweaver_logviewer ,
+                                                           :sharp_rwdash4040 ,
+                                                           :sharp_rwdash5100 ,
+                                                           :sightlinesystems_power_agent_for_windows_2000_datacenter ,
+                                                           :sightlinesystems_power_agent_for_windows_2000_server ,
+                                                           :sightlinesystems_power_agent_for_windows_2003_server ,
+                                                           :solarwinds_log_forwarder_for_windows ,
+                                                           :sun_ray_windows_connector ,
+                                                           :sun_solaris_pc_netlink ,
+                                                           :symantec_veritas_storage_foundation_for_windows ,
+                                                           :symantec_veritas_storage_foundation_for_windows_apppack ,
+                                                           :symantec_veritas_storage_foundation_for_windows_ccf_client ,
+                                                           :symantec_veritas_storage_foundation_for_windows_ccf_client_apppack ,
+                                                           :symantec_veritas_storage_foundation_for_windows_ccf_server ,
+                                                           :symantec_veritas_storage_foundation_for_windows_ccf_server_apppack ,
+                                                           :symantec_veritas_storage_foundation_for_windows_device_driver_installation ,
+                                                           :symantec_veritas_storage_foundation_ha_for_windows ,
+                                                           :telegram_telegram_messenger ,
+                                                           :windows_optimization_master_project_windows_optimization_master .
+
+
+<http://dbpedia.org/resource/Nokia_N900> rdf:type owl:NamedIndividual ,
+                                                  :DBpediaResource ;
+                                         owl:differentFrom :wdc_my_net_n900 .
+
+<http://dbpedia.org/resource/Robot_Operating_System> rdf:type owl:NamedIndividual ,
+                                                              :DBpediaResource ;
+                                                     owl:differentFrom :siemens_ruggedcom_rugged_operating_system .
+
+
+<http://dbpedia.org/resource/Samsung_Galaxy_S7> rdf:type owl:NamedIndividual ,
+                                                         :DBpediaResource ;
+                                                owl:differentFrom :siemens_simatic_s7_cpu_1212c ,
+                                                           :siemens_simatic_s7_cpu_1214c ,
+                                                           :siemens_simatic_s7_cpu_1215c ,
+                                                           :siemens_simatic_s7_cpu_1217c ,
+                                                           :siemens_simatic_s7_cpudash1211c .
+
+
+<http://dbpedia.org/resource/Software_Updater> rdf:type owl:NamedIndividual ,
+                                                        :DBpediaResource ;
+                                               owl:differentFrom :adobe_adobe_update_manager_core ,
+                                                          :adobe_adobe_update_manager_language_resource ,
+                                                          :adobe_update_manager ,
+                                                          :canonical_updatedashmanager ,
+                                                          :corel_update_manager ,
+                                                          :gnome_updatedashmanagerdashcore ,
+                                                          :hp_smart_update_manager ,
+                                                          :minitab_software_update_manager ,
+                                                          :rovicorp_sonic_update_manager ,
+                                                          :roxio_update_manager ,
+                                                          :vmware_update_manager ,
+                                                          :vmware_vcenter_update_manager .
+
+
+<http://dbpedia.org/resource/Sony_Ericsson_M600> rdf:type owl:NamedIndividual ,
+                                                          :DBpediaResource ;
+                                                 owl:differentFrom :meinberg_lantime_m600 ,
+                                                            :paloaltonetworks_mdash600 .
+
+
+<http://dbpedia.org/resource/Sony_Ericsson_T610> rdf:type owl:NamedIndividual ,
+                                                          :DBpediaResource ;
+                                                 owl:differentFrom :hp_t610 ,
+                                                            :ruckuswireless_t610 .
+
+<http://dbpedia.org/resource/Sony_Ericsson_W300i> rdf:type owl:NamedIndividual ,
+                                                           :DBpediaResource ;
+                                                  owl:differentFrom :zte_zxv10_w300 .
+
+
+
+<http://dbpedia.org/resource/Superscan> rdf:type owl:NamedIndividual ,
+                                                 :DBpediaResource ;
+                                        owl:differentFrom :mcafee_superscan .
+
+
+<http://dbpedia.org/resource/Unix> rdf:type owl:NamedIndividual ,
+                                            :DBpediaResource ;
+                                   owl:differentFrom :altiris_agent_for_unix_and_linux ,
+                                              :altiris_agent_for_unix_and_linux_documentation ,
+                                              :altiris_inventory_solution_for_unix_and_linux ,
+                                              :altiris_inventory_solution_for_unix_and_linux_documentation ,
+                                              :altiris_monitor_agent_for_unix_and_linux ,
+                                              :altiris_report_pack_for_inventory_solution_for_unix_and_linux ,
+                                              :altiris_software_delivery_solution_for_unix_and_linux ,
+                                              :altiris_software_delivery_solution_for_unix_and_linux_documentation ,
+                                              :businessobjects_crystal_enterprise_ras_for_unix ,
+                                              :cisco_secure_acs_for_unix ,
+                                              :ibm_monitoring_agent_for_unix_logs ,
+                                              :microsoft_windows_services_for_unix ,
+                                              :netiq_unix_agent_manager ,
+                                              :netiq_unix_manager ,
+                                              :opengroup_unix ,
+                                              :siemens_reliant_unix .
+
+
+
+
+<http://dbpedia.org/resource/Canonical_(company)> rdf:type owl:NamedIndividual ,
+                                                :DBpediaResource ;
+                                        owl:sameAs :canonical_vendor .
+
+
+<http://dbpedia.org/resource/B2evolution> rdf:type owl:NamedIndividual ,
+                                                :DBpediaResource ;
+                                        owl:sameAs :b2evolution_vendor .
+
+
+<http://dbpedia.org/resource/Apple_Inc> rdf:type owl:NamedIndividual ,
+                                                :DBpediaResource ;
+                                        owl:sameAs :apple_vendor .
+
+

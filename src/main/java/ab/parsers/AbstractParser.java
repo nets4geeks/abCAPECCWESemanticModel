@@ -29,6 +29,12 @@ public abstract class AbstractParser{
    private String parserName;
    private String dataFile;
 
+   protected String getms(long start, long stop){
+      long diff = (stop-start)/1000000;
+      return Long.toString(diff) + " ms";
+   }
+
+
    public AbstractParser (){
       parserName = getClass().getName();
       DEBUG = true;
@@ -37,6 +43,8 @@ public abstract class AbstractParser{
    // to build DOM give absolute path to data file  
    public boolean init(String _dataFile){
       dataFile = _dataFile;
+      log("initializing parser by "+dataFile);
+
       try {
          File fXmlFile = new File(dataFile);
          dbFactory = DocumentBuilderFactory.newInstance();
@@ -110,9 +118,6 @@ public abstract class AbstractParser{
      return getNodeByID(theMainList,ID);
    }
 
-   
-
-
 
    // remove
    public void debugShowNodeByID(String ID){
@@ -162,5 +167,25 @@ public abstract class AbstractParser{
           System.out.println("\n");
        }
     }
+
+
+   // remove
+   public void debugShowMainNodeList(){
+      NodeList nodelist = theMainList;
+      for (int i=0;i<nodelist.getLength();i++){
+         Node node = nodelist.item(i);
+          System.out.print("name:"+node.getNodeName());
+          NamedNodeMap nodemap = node.getAttributes();
+          if (nodemap !=null){
+             for (int k = 0; k < nodemap.getLength(); k++) {
+               Attr attr = (Attr) nodemap.item(k);
+               System.out.print(" |attr:" + attr.getName() + " value:" + attr.getValue());
+             }
+          }
+          System.out.println("\n");
+       }
+    }
+
+
 
 }

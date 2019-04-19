@@ -46,7 +46,7 @@ public class NVDJacksonParser extends JacksonParser{
          while (itr1.hasNext()) {
             JsonNode temp1 = itr1.next();
             String product = temp1.path("product_name").textValue();
-            vuln.products.add(new Product(vendor,product));
+            vuln.products.add(new CPEProduct(vendor,product));
          }
       }
       if (vuln.products.size() == 0) return false;
@@ -61,7 +61,7 @@ public class NVDJacksonParser extends JacksonParser{
          Iterator<JsonNode> itr1 = itr.next().path("cpe_match").elements();
          while (itr1.hasNext()) {
             JsonNode temp = itr1.next();
-            vuln.products.add (new Product(temp.path("cpe23Uri").textValue()) );
+            vuln.products.add (new CPEProduct(temp.path("cpe23Uri").textValue()) );
          }
       }
       if (vuln.products.size() == 0) return false;  

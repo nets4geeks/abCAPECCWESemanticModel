@@ -74,7 +74,6 @@ public class Normalizer {
 
    public static String setMethodOfAttack(String in){
       return safe(in);
-      
    }
 
    public static String safe(String in){
@@ -86,7 +85,7 @@ public class Normalizer {
       in1 = in1.replace("/","_");
       return in1;
    }
-   
+
    // todo remove all non-alphabetic symbols and add something to the begining if it's a digit
    public static String safe1(String in){
       String in1 = in;
@@ -119,7 +118,5 @@ public class Normalizer {
       if (Character.isDigit(in1.charAt(0))) in1 = "x" + in1;
       return in1;
    }
-
-
 
 }
