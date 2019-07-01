@@ -19,6 +19,7 @@ To create the test NVD model:
 4. To build the NVD dataset run ./runBuildNVDModel
 
 More details is [here](http://injoit.org/index.php/j1/article/download/743/736)
+
 If you want to refer to the CPE/DBpedia model, please cite:
 >Brazhuk A. Building annotated semantic model of software products towards integration of DBpedia with NVD vulnerability dataset //International Journal of Open Information Technologies ISSN: 2307-8162 - vol. 7, - no.7, - 2019 - C. 35-41
 
