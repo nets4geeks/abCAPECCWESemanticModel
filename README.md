@@ -57,7 +57,3 @@ To create the target model:
 
 [Andrei Brazhuk](https://scholar.google.com/citations?user=lxR8RLkAAAAJ&hl)
 
-## License
-
-It is a free software in any meaning you wish.
-No legal claims are accepted too.
