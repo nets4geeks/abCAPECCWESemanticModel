@@ -92,10 +92,10 @@ public class CWEParser extends AbstractParser{
                          Node tmpnode3 = getFirstChildNodeByName(tmpnode2,"#text");
                          if (tmpnode3 !=null){
                              if (tmpnode2name.equals("Scope")){
-                                tmpScope.Scopes.add(Normalizer.setScope(tmpnode3.getNodeValue()));
+                                tmpScope.Scopes.add(Normalizer.setScope3(tmpnode3.getNodeValue()));
                              }
                              if (tmpnode2name.equals("Impact")){
-                                tmpScope.Impacts.add(Normalizer.setTechnicalImpact(tmpnode3.getNodeValue()));
+                                tmpScope.Impacts.add(Normalizer.setTechnicalImpact3(tmpnode3.getNodeValue()));
                              }
                          } else{
                              log("could not read scope (ID="+ID+")");

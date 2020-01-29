@@ -37,7 +37,7 @@ For SPARQL use the [snap-sparql-query](https://github.com/protegeproject/snap-sp
 
 To create the target model: 
 1. clone & run ./compile (you only need java & maven to do that).
-2. run ./runBuildSemanticModelv2 to build the OWL file (do not forget to edit a properties file, download required data etc.)
+2. run ./runBuildSemanticModelv3 to build the OWL file (do not forget to edit a properties file, download required data etc.)
 
 Full description is [here](http://injoit.org/index.php/j1/article/download/686/675)
 

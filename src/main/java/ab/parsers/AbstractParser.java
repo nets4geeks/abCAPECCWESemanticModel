@@ -97,6 +97,22 @@ public abstract class AbstractParser{
    }
 
 
+   protected Attr getNodeAttributeByName(Node node,String tag){
+
+      // get all attributes
+      NamedNodeMap nodemap = node.getAttributes();
+      if (nodemap == null ) return null;
+      // iterate all attributes
+      for (int i=0; i< nodemap.getLength();i++) {
+         Attr attr = (Attr)nodemap.item(i);
+         if (attr.getName().equals(tag)) return attr;
+      }
+
+      return null;
+   }
+
+
+
    // to get node having "ID" attribute give this attribute as a string
    // if nothing is found return null
    protected Node getNodeByID(NodeList nodelist,String ID){

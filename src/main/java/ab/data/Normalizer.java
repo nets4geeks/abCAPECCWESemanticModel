@@ -6,15 +6,15 @@ import java.util.*;
 // CAPEC attack as a object
 public class Normalizer {
 
-   public static String setDegree(String in){
-      if (in.equals("Very Low")) in = "1";
-      if (in.equals("Very High")) in = "8";
-      if (in.equals("High to Very High")) in = "7";
-      if (in.equals("Medium to High")) in = "5";
-      if (in.equals("Low to Medium")) in = "3";
-      if (in.equals("High")) in = "6";
-      if (in.equals("Medium")) in = "4";
-      if (in.equals("Low")) in = "2";
+   public static String setDegree(String in){        //    5 items        8 items
+      if (in.equals("Very Low")) in = "1";           //   1=Very Low   1=Very Low
+      if (in.equals("Low")) in = "2";                //   2=Low        2=Low
+      if (in.equals("Low to Medium")) in = "3";      //                3=Low to Medium
+      if (in.equals("Medium")) in = "4";             //   4=Medium     4=Medium
+      if (in.equals("Medium to High")) in = "5";     //                5=Medium to High
+      if (in.equals("High")) in = "6";               //   6=High       6=High
+      if (in.equals("High to Very High")) in = "7";  //                7=High to Very High
+      if (in.equals("Very High")) in = "8";          //   8=Very High  8=Very High
       return in;
    }
 
@@ -23,6 +23,12 @@ public class Normalizer {
       if (in.equals("Non-Repudiation")) return "Non_Repudiation";
       if (in.equals("Other")) return "Other_Scope";
       return in;
+   }
+
+
+   public static String setScope3(String in){
+      if (in.equals("Other")) return "Other_Scope";
+      return safe1(in);
    }
 
 
@@ -69,6 +75,19 @@ public class Normalizer {
 
 
       return safe(in1);
+   }
+
+   public static String setTechnicalImpact3(String in){
+      String in1 = safe1(in);
+      if (in1.equals("Execute_Unauthorized_Code_or_Commands")) return "Execute_Unauthorized_Commands";
+      if (in1.equals("Gain_Privileges_or_Assume_Identity")) return "Gain_Privileges";
+      if (in1.equals("Modify_Application_Data")) return "Modify_Data";
+      if (in1.equals("Read_Application_Data")) return "Read_Data";
+      if (in1.equals("Varies_by_Context")) return "Varies_by_Context_Impact";
+      if (in1.equals("Other")) return "Other_Impact";
+
+      return in1; 
+
    }
 
 

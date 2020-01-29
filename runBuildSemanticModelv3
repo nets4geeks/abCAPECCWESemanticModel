@@ -1,0 +1,2 @@
+
+mvn exec:java -q -Dexec.mainClass="ab.applications.BuildSemanticModel3" -Dexec.args="/home/net/project/runBuildSemanticModelv3.properties"
