@@ -47,7 +47,7 @@ If you want to refer to the CAPEC&CWE model, please cite:
 
 ## The A10-16 model 
 
-* [The target OWL Model](snapshots/20181129.owl)
+* [The target OWL Model](snapshots/current.owl)
 
 To create the target model:
 1. clone & run ./compile (you only need java & maven to do that).
