@@ -1,7 +1,5 @@
 
-
 # Generator of CAPEC & CWE & CPE & NVD semantic models
-
 
 ## CPE & DBpedia Model
 * [Target RDF dataset](cpemodel/CPEDBpediaModel.ttl)
